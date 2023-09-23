@@ -16,15 +16,41 @@ class Plotter:
         fig.update_traces(textinfo='percent+label', pull=[0.1] * len(emotions), textposition='outside', textfont_size=14)
         return fig
 
-    def create_stacked_bar_chart(self, title="Emotion Analysis"):
-        emotions = ["Sentiment"] + list(self.emotion_dict.keys())
-        values = [self.sentiment_score] + list(self.emotion_dict.values())
+    def create_stacked_bar_chart(self, title="Sentiment Analysis"):
+        # Define the data
+        emotions = ["Sentiment"]
+        values = [self.sentiment_score]
 
+        # Create a DataFrame
         df = pd.DataFrame({'Emotion': emotions, 'Value': values})
-        fig = px.bar(df, x='Emotion', y='Value', title=title, labels={'Value': 'Emotion Value'}, width=800, height=400)
+
+        # Create the bar chart figure
+        fig = px.bar(
+            df,
+            x='Value',
+            y='Emotion',
+            title=title,
+            labels={'Value': 'Emotion Value'},
+            width=1000,
+            height=70,
+            orientation='h',
+            color='Emotion',  # Color bars by emotion
+            color_discrete_map={'Sentiment ': 'blue'},  # Customize color
+            text=values,  # Display values on bars
+        )
+
+        # Customize the layout
+        fig.update_traces(marker_line_width=1.5, marker_line_color='black')  # Add border lines to bars
+        fig.update_layout(
+            margin=dict(l=25, r=25, t=40, b=20),  # Adjust margins
+            xaxis=dict(showgrid=False),  # Remove x-axis grid lines
+            yaxis=dict(showgrid=False),  # Remove y-axis grid lines
+        )
+
+        # Show the chart
         return fig
 
-    def create_radar_chart(self, title="Emotion Analysis"):
+    def create_radar_chart(self, title="Radar Emotion Plot"):
         emotions = list(self.emotion_dict.keys())
         values = list(self.emotion_dict.values())
 

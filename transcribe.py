@@ -27,13 +27,13 @@ class Transcribe:
 
         result = self.process_audio(audio_file)
 
-        st.header("Result")
-        st.write(result)  # type: ignore
+        st.header("Transcript")
+        st.write(result)
         with open("output/transcript.txt", "w") as text_file:
             text_file.write(result)
-        st.header("Copy to clipboard")
-        if st.button("Copy"):
-            pyperclip.copy(result) 
+        # st.header("Copy to clipboard")
+        # if st.button("Copy"):
+        #     pyperclip.copy(result) 
 
     @st.experimental_memo
     def process_audio(_self, audio_file: io.BytesIO) -> str:
