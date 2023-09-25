@@ -61,3 +61,20 @@ class AudioRecorder:
         wf.close()
 
         return temp_audio_file.name
+    
+    def save_audio_to_uploaded_file(self, frames, sample_rate):
+        temp_audio_file = tempfile.NamedTemporaryFile(delete=False, suffix=".wav")
+        temp_audio_file.close()
+
+        wf = wave.open(temp_audio_file.name, 'wb')
+        wf.setnchannels(1)
+        wf.setsampwidth(pyaudio.PyAudio().get_sample_size(pyaudio.paInt16))
+        wf.setframerate(sample_rate)
+        wf.writeframes(b''.join(frames))
+        wf.close()
+
+        # st.write("Audio saved as temporary WAV file:", temp_audio_file.name)
+
+        # Upload the temporary WAV file and return it as an UploadedFile
+        # uploaded_audio = st.sidebar.file_uploader("Uploaded Audio", type=["wav"], key="uploaded_audio")
+        return temp_audio_file.name

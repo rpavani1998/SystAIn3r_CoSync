@@ -87,8 +87,7 @@ if uploaded_file is not None:
             st.plotly_chart( plotter.create_radar_chart(), use_container_width=True)
         st.plotly_chart(plotter.create_stacked_bar_chart(), use_container_width=True)
     
-        with tab2:
-            pass
+        # with tab2:
         #     diarization = SpeakerDiarization(scribe.model)
         #     diarization.process_audio(uploaded_file.name)
         
